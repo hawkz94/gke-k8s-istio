@@ -1,3 +1,5 @@
+[![YourActionName Actions Status](https://github.com/hawkz94/gke-k8s-istio/workflows/CI-CD/badge.svg)](https://github.com/hawkz94/gke-k8s-istio/actions)
+
 <h1 align="center">[WIP] GKE - Deploy app using Kubernetes, ISTIO and Github actions</h1>
 
 The objective of this project is to orchestrate a micro-service architecture using Terraform to create the k8s cluster in GKE and managing deployments with k8s and istio.
