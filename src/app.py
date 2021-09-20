@@ -14,7 +14,7 @@ def square_root(number):
 
 @app.route('/', methods=["GET"])
 def api():
-    return jsonify({'Success': 'Welcome to api calculate square root'})
+    return jsonify({'Success': 'Welcome to api calculate square root - new deploy'})
 
 @app.route('/healthcheck', methods=["GET"])
 def healthcheck():
