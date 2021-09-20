@@ -60,18 +60,11 @@ jobs:
       - run: |-
           gcloud container clusters get-credentials "$GKE_CLUSTER" --zone "$GKE_ZONE"
 
-      # Set up kustomize
-      - name: Set up Kustomize
-        run: |-
-          curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
-          chmod u+x ./kustomize
-
-      # Deploy sample image to the GKE cluster
-      - name: Deploy
-        run: |-
-          ./kustomize edit set image harrissonbiaggio94/calculate:${{ github.run_number }}
-          ./kustomize build .
-          kubectl apply -f k8s/deployment.yml
-          kubectl rollout status k8s/deployment/$DEPLOYMENT_NAME
-          kubectl get services -o wide
+          
+      - name: Deploy to Kubernetes web
+        uses: Azure/k8s-deploy@v1
+        with:
+          manifests: |
+            k8s/deployment.yml
+          images: harrissonbiaggio94/calculate:${{ github.run_number }}
           
