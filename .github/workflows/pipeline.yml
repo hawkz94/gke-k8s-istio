@@ -69,7 +69,7 @@ jobs:
       # Deploy sample image to the GKE cluster
       - name: Deploy
         run: |-
-          ./kustomize edit set imageharrissonbiaggio94/calculate:${{ github.run_number }}
+          ./kustomize edit set image harrissonbiaggio94/calculate:${{ github.run_number }}
           ./kustomize build .
           kubectl apply -f k8s/deployment.yml
           kubectl rollout status k8s/deployment/$DEPLOYMENT_NAME
