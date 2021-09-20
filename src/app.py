@@ -12,5 +12,13 @@ def square_root(number):
     except:
         return jsonify({'error': 'Error calculate, try again.'})
 
+@app.route('/', methods=["GET"])
+def api():
+    return jsonify({'Success': 'Welcome to api calculate square root'})
+
+@app.route('/healthcheck', methods=["GET"])
+def healthcheck():
+    return jsonify({'Success': '200'})
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')

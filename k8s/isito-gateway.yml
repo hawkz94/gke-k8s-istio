@@ -1,0 +1,47 @@
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: app-gateway
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-calculate-homolog"
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: letsencrypt-calculate-homolog
+    hosts:
+      - "*.negociosdedev.com.br"
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*.negociosdedev.com.br"
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: calculate-service
+spec:
+  hosts:
+  - "calculate.negociosdedev.com.br"
+  gateways:
+  - app-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: calculate-service
+        port:
+          number: 80

@@ -1,0 +1,34 @@
+
+apiVersion: cert-manager.io/v1alpha2
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-homolog
+  # namespace: default
+spec:
+  acme:
+    email: contato@negociosdedev.com.br
+    privateKeySecretRef:
+      name: letsencrypt-homolog
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    solvers:
+    - http01:
+        ingress:
+          class: istio
+
+---
+
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: letsencrypt-calculate-homolog
+  namespace: istio-system
+spec:
+  secretName: letsencrypt-calculate-homolog
+  commonName: "*.negociosdedev.com.br"
+  issuerRef:
+    name: letsencrypt-homolog
+    kind: ClusterIssuer
+  commonName: "*.negociosdedev.com.br"
+  dnsNames:
+  - "*.negociosdedev.com.br"
+        
